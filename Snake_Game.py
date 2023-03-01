@@ -86,12 +86,6 @@ class Snake:
         elif tail_relation == pygame.math.Vector2(0, -1):
             self.tail = self.tail_down
 
-            # TESTING
-            # x_pos = int(block.x * cell_size)
-            # y_pos = int(block.y * cell_size)
-            # block_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size)  # pygame.Rect(x, y, width, height)
-            # pygame.draw.rect(screen, "forestgreen", block_rect)
-
     def move_snake(self):
         if self.new_block == True:
             body_copy = self.body[:]
@@ -99,9 +93,10 @@ class Snake:
             self.body = body_copy[:]
             self.new_block = False  # Changing condition from TRUE to FALSE, so our snake won't have infinitive tail.
         else:
-            body_copy = self.body[:-1]
-            body_copy.insert(0, body_copy[0] + self.direction)
-            self.body = body_copy[:]
+            if self.direction != pygame.math.Vector2(0,0): #Fixed issue with the overlapping spend 6 hours....
+                body_copy = self.body[:-1]
+                body_copy.insert(0, body_copy[0] + self.direction)
+                self.body = body_copy[:]
 
     def add_block(self):
         self.new_block = True
@@ -148,15 +143,15 @@ class Main:
         self.draw_score()
 
     def draw_score(self):
-        score_text = str(len(self.snake.body) - 2)
-        score_surface = game_font.render(score_text, False, "bisque4")
-        score_x = int(cell_size * cell_number - 60)
-        score_y = int(cell_size * cell_number - 40)
+        # SCORE
+        game_font = pygame.font.Font("Font/game_over.ttf", 50)  # Font and font Size
+        score_value = str(len(self.snake.body) - 2)
+        score_text = "SCORE: " + score_value
+        score_surface = game_font.render(score_text, True, "bisque4")
+        score_x = int(cell_size * cell_number // 2)
+        score_y = 20
         score_rect = score_surface.get_rect(center=(score_x, score_y))
-        food_rect = self.fruit.food.get_rect(midright=(score_rect.left, score_rect.centery))
-
         screen.blit(score_surface, score_rect)
-        screen.blit(self.fruit.food, food_rect)  # Change Icon in the future!.
 
     def check_collision(self):
         if self.fruit.pos == self.snake.body[0]:  # If firs body part at the fruit pos makes collision effect.
@@ -170,15 +165,13 @@ class Main:
                 self.fruit.randomize()
 
     def check_fail(self):
-        # Should add game over sound.
         if not 0 <= self.snake.body[0].x < cell_number or not 0 <= self.snake.body[
             0].y < cell_number:  # Checking if snake is outisde of the screen (RIGHT LEFT 'X', TOP, BOTTOM 'Y').
             self.game_over()
-        # I should add sound when snake eat a tail.
-        for block in self.snake.body[1:]:
-            if block == self.snake.body[0]:
-                # Vieta kur yra bug.
-                self.game_over()
+        if len(self.snake.body) > 2:
+            for block in self.snake.body[1:]:
+                if block == self.snake.body[0]:
+                    self.game_over()
 
     def game_over(self):
         self.snake.reset_snake()
@@ -195,9 +188,6 @@ clock = pygame.time.Clock()
 # Game Images/SOUND
 # food = pygame.image.load("Graphics/apple.png").convert_alpha()  # Python image converter
 
-
-# SCORE
-game_font = pygame.font.Font("Font/game_over.ttf", 100)  # Font and font Size
 
 # Main
 main_game = Main()
@@ -230,15 +220,3 @@ while True:
     main_game.draw_elements()
     pygame.display.update()
     clock.tick(60)  # FPS
-
-# Add a leaderboard to your game, where players can view the high scores of all time or for the day/week/month.
-# Implement sound effects and music to enhance the gaming experience. (Left the Game Over, Bite Tail, and Wall Sound).
-# Implement unit tests and code reviews to ensure that your code is high quality and free of bugs.
-# Create an EXE file.
-# Add RESET and MUTE Buttons.
-
-# Class Small start (DONE)
-# BlackFormater/ Black Python / Line lenght 120. black .
-# Classes istaukt i kitus failus.
-# Add option to mute the sound.
-# Add to the GITHUB
