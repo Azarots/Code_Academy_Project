@@ -1,4 +1,6 @@
 from screen_constants import *
+from logger_config import logger
+import sys
 
 
 class Snake:
@@ -28,7 +30,14 @@ class Snake:
 
         # Sound Effects
         self.food_sound = pygame.mixer.Sound("Sound/eating-sound-effect-36186.mp3")
-        self.game_over_sound = pygame.mixer.Sound("Sound/videogame-death-sound-43894.mp3")
+
+        try:
+            self.game_over_sound = pygame.mixer.Sound("Sound/videogame-death-sound-43894.mp3")
+        except FileNotFoundError as sound_error:
+            logger.exception(f"Game_Over_Sound is missing {sound_error}")
+            pygame.quit()
+            sys.exit()
+
         back_ground_sound = pygame.mixer.Sound("Sound/Back_Ground.mp3")
         # back_ground_sound.set_volume(0)
         back_ground_sound.play(-1)  # Sound Playing on repeat.

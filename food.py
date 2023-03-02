@@ -5,7 +5,7 @@ from screen_constants import *
 class Food:
     def __init__(self):
         self.randomize()  # Trying to save some code lines, that's why added randomize because used same logic.
-        self.food = pygame.image.load("Graphics/apple.png").convert_alpha()
+        self.food = pygame.image.load("Graphics/food.png").convert_alpha()
 
     def draw_fruit(self):
         fruit_rect = pygame.Rect(int(self.pos.x * cell_size), int(self.pos.y * cell_size), cell_size, cell_size)
