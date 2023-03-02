@@ -36,7 +36,7 @@ class Main:
             self.snake.add_block()  # Add another block to snake
             self.snake.play_eating_sound()  # Playing sound when snake has collision.
 
-        # Avoiding food to be placed on a SNAKE:
+        # Avoiding food to be placed on a SNAKE (Not checking the head):
         for block in self.snake.body[1:]:
             if block == self.fruit.pos:
                 self.fruit.randomize()
@@ -47,8 +47,8 @@ class Main:
         ):  # Checking if snake is outside the screen (RIGHT LEFT 'X', TOP, BOTTOM 'Y').
             self.game_over()
         if len(self.snake.body) > 2:
-            for block in self.snake.body[1:]:
-                if block == self.snake.body[0]:
+            for block in self.snake.body[1:]:  # Taking all body after head.
+                if block == self.snake.body[0]:  # If head body[0] hit the rest of body.
                     self.game_over()
 
     def game_over(self):
@@ -67,5 +67,5 @@ class Main:
 
         pygame.display.update()
 
-        time.sleep(1)
+        time.sleep(2)  # Freeze timer.
         self.snake.reset_snake()

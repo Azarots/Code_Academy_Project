@@ -45,16 +45,16 @@ class Snake:
 
             if index == 0:
                 screen.blit(self.head, block_rect)  # head
-            elif index == len(self.body) - 1:  # By this method we will get last item.
+            elif index == len(self.body) - 1:  # By this method we will get last item (Tail).
                 screen.blit(self.tail, block_rect)
-            else:
+            else:  # Horizontal and Vertical body.
                 previous_block = self.body[index + 1] - block
                 next_block = self.body[index - 1] - block
                 if previous_block.x == next_block.x:
                     screen.blit(self.body_vertical, block_rect)
                 elif previous_block.y == next_block.y:
                     screen.blit(self.body_horizontal, block_rect)
-                else:
+                else:  # Corners of the body (Looking into current and previous block, and how they correlate together)
                     if previous_block.x == -1 and next_block.y == -1 or previous_block.y == -1 and next_block.x == -1:
                         screen.blit(self.body_tl, block_rect)  # x = -1, y = -1
                     elif previous_block.x == -1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == -1:
