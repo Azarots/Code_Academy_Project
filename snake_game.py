@@ -5,15 +5,15 @@ from screen_constants import *
 # Main
 pygame.init()
 main_game = Main()
-SCREEN_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(SCREEN_UPDATE, 150)
+screen_update = pygame.USEREVENT
+pygame.time.set_timer(screen_update, 150)  # SPEEEEEEED (ms).
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        if event.type == SCREEN_UPDATE:
+        if event.type == screen_update:
             main_game.update()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:

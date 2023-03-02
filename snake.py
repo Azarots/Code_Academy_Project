@@ -5,7 +5,7 @@ class Snake:
     def __init__(self):
         self.body = [pygame.math.Vector2(4, 10), pygame.math.Vector2(3, 10)]  # 2 Bodies (Head and Tail) + Start pos.
         self.direction = pygame.math.Vector2(0, 0)  # Start Direction
-        self.new_block = False
+        self.new_block = False  # if collision with the food changes to true.
 
         # Snake Body images
         self.head_up = pygame.image.load("Graphics/head_up.png").convert_alpha()
@@ -30,6 +30,7 @@ class Snake:
         self.food_sound = pygame.mixer.Sound("Sound/eating-sound-effect-36186.mp3")
         self.game_over_sound = pygame.mixer.Sound("Sound/videogame-death-sound-43894.mp3")
         back_ground_sound = pygame.mixer.Sound("Sound/Back_Ground.mp3")
+        # back_ground_sound.set_volume(0)
         back_ground_sound.play(-1)  # Sound Playing on repeat.
         pygame.mixer.pre_init(44100, -16, 2, 512)  # Avoids delay on a sound.
 
@@ -86,7 +87,7 @@ class Snake:
             self.tail = self.tail_down
 
     def move_snake(self):
-        if self.new_block == True:
+        if self.new_block == True:  # When changes to true add new block.
             body_copy = self.body[:]
             body_copy.insert(0, body_copy[0] + self.direction)
             self.body = body_copy[:]
