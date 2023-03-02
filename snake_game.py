@@ -2,10 +2,8 @@ import sys
 from main import Main
 from screen_constants import *
 
-# SCREEN SETTINGS
-pygame.init()
-
 # Main
+pygame.init()
 main_game = Main()
 SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE, 150)
@@ -31,7 +29,7 @@ while True:
                 if main_game.snake.direction.x != -1:
                     main_game.snake.direction = pygame.math.Vector2(1, 0)
 
-    screen.fill(("darkgreen"))
+    screen.fill("saddlebrown")
     main_game.draw_elements()
     pygame.display.update()
 

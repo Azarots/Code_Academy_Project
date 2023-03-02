@@ -13,6 +13,6 @@ class Food:
         # pygame.draw.rect(screen, "brown1", fruit_rect)  # Surface, color, rectagle
 
     def randomize(self):
-        self.x = random.randint(0, cell_number - 1)  # Ensures that fruit is alawys on the screen
-        self.y = random.randint(0, cell_number - 1)
-        self.pos = pygame.math.Vector2(self.x, self.y)  # Can Import pygame.math to save some writitng time.
+        self.x = random.randint(0, cell_number - 1)  # -1 Ensures that fruit is alawys on the screen
+        self.y = random.randint(0, cell_number - 1)  # # -1 Ensures that fruit is alawys on the screen
+        self.pos = pygame.math.Vector2(self.x, self.y)
