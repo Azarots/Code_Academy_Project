@@ -102,7 +102,7 @@ class Snake:
             self.body = body_copy[:]
             self.new_block = False  # Changing condition from TRUE to FALSE, so our snake won't have infinitive tail.
         else:
-            if self.direction != pygame.math.Vector2(0, 0):  # Fixed issue with the overlapping spend 6 hours....
+            if self.direction != pygame.math.Vector2(0, 0):  # Fixed issue with the overlapping
                 body_copy = self.body[:-1]
                 body_copy.insert(0, body_copy[0] + self.direction)
                 self.body = body_copy[:]
